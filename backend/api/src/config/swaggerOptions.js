@@ -40,8 +40,8 @@ module.exports = {
   
 		basedir: __dirname, // app absolute path
 		files: [
-			'../api/private/controllers/*.js',
-			'../api/public/controllers/*.js'
+			'../../Public/Controllers/*.js',
+			'../../Private/Controllers/*.js'
 		]
 	}
 };

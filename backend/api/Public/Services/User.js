@@ -6,7 +6,7 @@ class User {
 		this.db = db;
 	}
 
-	static async getAllUser() {
+	static async login() {
 		try {
 			const allUsers = await db.Users.findAll();
 			console.log('allUsers -->', allUsers);

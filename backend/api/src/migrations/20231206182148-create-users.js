@@ -29,8 +29,17 @@ module.exports = {
 				type: Sequelize.STRING,
 				allowNull: true
 			},
+			type: {
+				type: Sequelize.BIGINT,
+				allowNull: false,
+				references: {
+					model: 'UserTypes',
+					key: 'id'
+				}
+			},
 			is_removed: {
 				type: Sequelize.BOOLEAN,
+				allowNull: false,
 				defaultValue: false
 			},
 			createdAt: {

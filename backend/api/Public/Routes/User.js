@@ -3,6 +3,6 @@ import UserController from '../Controllers/User';
 
 const app = express();
 
-app.get('/login', UserController.getAllUser);
+app.post('/login', UserController.login);
 
 export default app;

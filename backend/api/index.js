@@ -6,7 +6,7 @@ import cors from 'cors';
 import { success } from 'consola';
 
 import publicRoutes from './Public/index';
-// import privateRoutes from './Private/index';
+import privateRoutes from './Private/index';
 
 import { swaggerOptions } from './src/config/swaggerOptions';
 import './src/models';
@@ -24,6 +24,11 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use((req, res, next) => {
+	req.headers.language = req.headers.language || 'tr';
+	next();
+});
+
 const basicAuth = require('express-basic-auth');
 const swaggerUi = require('swagger-ui-express');
 const swaggerApiDocs = require('./utils/expresss_swagger_generator/generator')(swaggerOptions);
@@ -39,7 +44,7 @@ const swaggerApiDocs = require('./utils/expresss_swagger_generator/generator')(s
 // 	return basicAuth({
 // 		challenge: true,
 // 		realm: 'Imb4T3st4pp',
-// 		// authorizer: swaggerAuthorizer,
+// 		authorizer: swaggerAuthorizer,
 // 		authorizeAsync: false
 // 	})(req, res, next);
 // });
@@ -47,7 +52,7 @@ const swaggerApiDocs = require('./utils/expresss_swagger_generator/generator')(s
 app.use('/api-docs', swaggerUi.serveFiles(swaggerApiDocs), swaggerUi.setup(swaggerApiDocs));
 
 app.use('/public', publicRoutes);
-// app.use('/private', privateRoutes);
+app.use('/private', privateRoutes);
 
 app.get('/health', (req, res) => {
 	res.json({type: true, message: 'server is running', env: process.env.NODE_ENV});
